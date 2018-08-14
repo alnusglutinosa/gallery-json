@@ -1,10 +1,64 @@
 body
-	background:#ccc
+	background:#fff
 
-.main
-	display: block
-	width: 600px
+.container
+	max-width: 700px
 	margin: 0 auto
+
+.slick-slide
+	cursor: pointer
+
+.gallery
+	padding: 20px 0
+	font-size: 0px
+
+.gallery__slider
+	position: relative
+	display: block
+	margin: 0 auto
+
+.gallery__link
+	position: relative
+	height: 0
+	overflow: hidden
+	padding-bottom: 67%
+	font-size: 14px
+	cursor: zoom-in
+
+.gallery__img-nav
+	position: relative
+	height: 0
+	overflow: hidden
+	padding-bottom: 72%
+
+.slider-nav
+	margin-top: 1px
+
+.mfp-title
+	font-size: 14px
+	line-height: 18px
+	color: #f3f3f3
+	word-wrap: break-word
+
+.slick-next, 
+.slick-prev 
+	background: #aaaaae
+	border-radius: 2px
+	width: 20px
+	height: 22px
+	color: #333
+
+.slick-next:focus, 
+.slick-next:hover, 
+.slick-prev:focus, 
+.slick-prev:hover 
+	color: #fff
+	outline: 0
+	background: #000
+	opacity: 1
+
+
+
 
 h3
 	background: #fff
@@ -32,10 +86,13 @@ h3
 .action a:hover
 	background: #000
 
-.image-link
-	cursor: zoom-in
-
 
 .mfp-title
 	text-align: center
 	padding: 6px 0
+
+.slick-initialized .slick-slide, 
+.slick-slide img 
+	display: block
+	width: 100%
+	padding: 1px
