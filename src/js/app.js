@@ -6,22 +6,20 @@ sayHello();
 
 // начать повторы loader
 $('.loader').addClass('is-active');
-  
+
 $(document).ready(function() {
 
-  var jdata = $.getJSON( 'https://jsonplaceholder.typicode.com/photos', function( data ) {
-    var items = [];
-    var item=0;
+  // Load json
+  var jdata = $.ajax({
+    url: 'https://jsonplaceholder.typicode.com/photos', // указываем URL
+    dataType : 'json', // тип загружаемых данных
+    success: function(data, textStatus) { // вешаем свой обработчик на функцию success
+      var item = 1;
+      $.each(data, function(i, val) { // обрабатываем полученные данные
 
-    $.each( data, function( key, val ) {
-
-      if (item<=200) {
-
-        // $('.slider-for').append(
-        //   '<div><a href="' + val['url'] + '" class="with-caption image-link"><img src="' + val['url'] + '" alt="'+ val['title'] +'" draggable="false" /></a></div>');
-
-        // $('.slider-nav').append(
-        //   '<div><img src="' + val['thumbnailUrl'] + '" alt="'+ val['title'] +'" draggable="false" /></div>');
+        if (item > 100) {
+          return false;
+        }
 
         $('.slider-for').append(
           '<div><a class="gallery__link" href="' + val['url'] + '" class="with-caption image-link" style=\"display: block; background: url(' + val['url'] + ') center center / cover; width: 100%; display: inline-block;\"  title=\"'+ val['title'] +'\"></a></div>');
@@ -30,13 +28,14 @@ $(document).ready(function() {
           '<div><div class="gallery__img-nav" style=\"display: block; background: url(' + val['url'] + ') center center / cover; width: 100%; display: inline-block;\"  title=\"'+ val['title'] +'\"></div></div>');
 
         item++;
-      }
-    });
+      });
+    }
   });
 
 
   $.when(jdata).done(function() {
 
+    // Slider
     var num_for = 0;
     $('.slider-for').each(function() {
       num_for ++;
@@ -49,7 +48,6 @@ $(document).ready(function() {
         infinite: false,
         asNavFor: '.slider-nav.slider-nav-' + num_for
       });
-
     });
 
     var num_nav = 0;
@@ -58,9 +56,10 @@ $(document).ready(function() {
 
       $(this).addClass( 'slider-nav-' + num_nav ).slick({
         slidesToShow: 11,
-        slidesToScroll: 11,
+        slidesToScroll: 1,
         asNavFor: '.slider-for.slider-for-' + num_nav,
         dots: false,
+        arrows: true,
         infinite: false,
         focusOnSelect: true,
 
@@ -78,6 +77,7 @@ $(document).ready(function() {
             settings: {
               slidesToShow: 4,
               slidesToScroll: 4,
+              arrows: false
             }
           },
           {
@@ -85,35 +85,41 @@ $(document).ready(function() {
             settings: {
               slidesToShow: 3,
               slidesToScroll: 3,
+              arrows: false
             }
           }
         ]
 
       });
-
     });
 
 
     // Popup
-    $('.gallery__link').magnificPopup({
-      type: 'image',
-      closeBtnInside: false,
-      mainClass: 'mfp-with-zoom mfp-img-mobile',
+    var num_magnific = 0;
+    $('.slider-for').each(function() {
+      num_magnific++;
+      // $(this).addClass( 'gallery__link-' + num_magnific ).magnificPopup({
+      $(this).find('.gallery__link').magnificPopup({
+        type: 'image',
+        closeBtnInside: false,
+        mainClass: 'mfp-with-zoom mfp-img-mobile',
 
-      image: {
-        verticalFit: true,
-        titleSrc: function(item) {
-          var caption = item.el.attr('title');
-          return caption;
+        image: {
+          verticalFit: true,
+          titleSrc: function(item) {
+            var caption = item.el.attr('title');
+            return caption;
+          }
+        },
+
+        gallery: {
+          enabled: true
         }
-      },
-
-      gallery: {
-        enabled: true
-      }
+      });
     });
 
-    $('.loader').removeClass('is-active');    
+
+    $('.loader').removeClass('is-active');
 
   });
 
