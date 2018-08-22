@@ -21,11 +21,12 @@ $(document).ready(function() {
           return false;
         }
 
+
         $('.slider-for').append(
-          '<div><a class="gallery__link" href="' + val['url'] + '" class="with-caption image-link" style=\"display: block; background: url(' + val['url'] + ') center center / cover; width: 100%; display: inline-block;\"  title=\"'+ val['title'] +'\"></a></div>');
+          '<a class="gallery__link" href="' + val['url'] + '" style=\"background-image: url(' + val['url'] + ');\"  title=\"'+ val['title'] +'\"></a>');
 
         $('.slider-nav').append(
-          '<div><div class="gallery__img-nav" style=\"display: block; background: url(' + val['url'] + ') center center / cover; width: 100%; display: inline-block;\"  title=\"'+ val['title'] +'\"></div></div>');
+          '<div><div class="gallery__img-nav" style=\"background-image: url(' + val['url'] + ');\"  title=\"'+ val['title'] +'\"></div></div>');
 
         item++;
       });
@@ -61,7 +62,8 @@ $(document).ready(function() {
         dots: false,
         arrows: true,
         infinite: false,
-        focusOnSelect: true,
+        focusOnSelect: true
+        ,
 
         responsive: [
           {
